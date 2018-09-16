@@ -30,6 +30,21 @@ Run This
 
     sudo systemctl restart apache2
     sudo service restart apache2
+    sudo vim  /var/www/html/index.php
+Insert This
+
+     <html>
+     <head>
+     <title>PHP Test</title>
+    </head>
+    <body>
+    <?php echo '<p>Hello World</p>'; ?>
+    </body>
+    </html>
+Go Here in your browser and make sure Hello World comes up
+   
+    localhost/index.php
+
 
 <center>-- RUN IT, MAKE SURE PHP WORKS--</center>
 
