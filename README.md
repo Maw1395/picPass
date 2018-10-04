@@ -7,6 +7,8 @@ https://drive.google.com/file/d/1JLOc9uLhWBFvwPVB9L2Bk9ogCoOQWKcZ/view?usp=shari
 ## Video Demonstration
 https://www.youtube.com/watch?v=1TulW7tr4V8
 
+## PowerPoint Presentation 
+https://docs.google.com/presentation/d/1wqiPw7-eSTictgOzLA1kvIKVz1j3i9L5VPweA-f1YmQ/edit?usp=sharing
 
 ## Demonstration
 <img src="https://github.com/McFlip/picPass/blob/master/templates/STEGO.gif" width="850" height="550" />)
