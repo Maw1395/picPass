@@ -1,6 +1,14 @@
 # picPass
 Picture based authentication.
-# Installiation 
+
+## Report
+https://drive.google.com/file/d/1MgLvqDqJXbxoP9TikSMqGc8lZWlAGETY/view?usp=sharing
+
+## Presentation
+https://docs.google.com/presentation/d/1wqiPw7-eSTictgOzLA1kvIKVz1j3i9L5VPweA-f1YmQ/edit?usp=sharing
+
+## Demonstration
+<img src="https://github.com/McFlip/picPass/blob/master/templates/STEGO.gif" width="850" height="550" />)
 
 ## Install Apache
 
@@ -113,5 +121,6 @@ INSERT THIS
 
     sudo chmod u+w+x,g+w+x db/ #<---- ON THE DIRECTORY
     sudo chmod u+w+x,g+w+x db/app.db #<---- ON THE FILE
+
 
 

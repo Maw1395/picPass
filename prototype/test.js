@@ -1,7 +1,6 @@
 var rounds = 10; //original n for lamportHash
 
-// Function modified from forcewake
-// Original version: https://gist.github.com/forcewake/6527392
+
 // Linear Congruential Generator
 // Variant of a Lehman Generator
 var lcg = (function() {
@@ -43,14 +42,13 @@ function dataUrlToBase64 (dataURL){
   return dataURL = dataURL.split(",").pop();
 }
 
-function lamportHash(callback, hash, rnd){
+function lamportHash(callback, hash, rnd, pin){
   var tempstr = hash.toString();
   for(i = 1; i < rnd; i++){
     hash = CryptoJS.SHA256(tempstr);
-    //hash = CryptoJS.HmacSHA256(tempstr, pin);
-    //Moved from Here to Stego
+//     hash = CryptoJS.HmacSHA256(tempstr, pin);
     tempstr = hash.toString();
-    console.log("sha " + i + " from client " +tempstr);
+    console.log(tempstr);
   }
   document.getElementById('sha').value = hash.toString();
   document.getElementById('shab64').value = hash.toString(CryptoJS.enc.Base64);
@@ -72,18 +70,19 @@ function stego(buffer) { // buffer is dataURL
     ctx.drawImage(image,0,0);
 
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    var data = imageData.data;//Image data being modified in the value of data
-    lcg.setSeed(); //setting the seed
+    var data = imageData.data;
+    lcg.setSeed();
     console.log("seed: " + lcg.getSeed().toString());
-    var randArray = new ArrayBuffer(data.length);
-    var rand8 = new Uint8Array(randArray);
-    for (i=0; i<rand8.length; i++)
-    {
-        rand8[i]=lcg.rand();
-        lcg.setSeed();
-    }
+    var words = CryptoJS.enc.Base64.parse(buffer);
+    var encrypted = CryptoJS.RC4Drop.encrypt(buffer, lcg.getSeed().toString());
+    var cipherText = new Uint32Array(encrypted.ciphertext);
 
-
+//     var randArray = new ArrayBuffer(data.length);
+//     var rand32 = new Uint32Array(randArray);
+//     for(i = 0; i < rand32.length; ++i){
+//         rand32[i] = lcg.rand();
+//     }
+//     var rand8 = new Uint8Array(randArray);
 
     // STEGO
     for(i = 0, n = data.length; i < n; i += 4) {
@@ -91,17 +90,22 @@ function stego(buffer) { // buffer is dataURL
 //       data[i+1] = 0;
 //       data[i+2] = 0;
       for(j=0; j < 3; ++j){
-        rando = rand8[ (i + j)] & 1;
-        data[i + j] ^= rando;
+        rando = cipherText[i+j] & 1;
+        if(rando){
+          data[i + j] |= rando;
+        }else{
+          data[i + j] &= 254;
         }
       }
+    }
     ctx.putImageData(imageData, 0, 0);
     stegified = dataUrlToBase64(canvas.toDataURL("image/png"));
     console.log("stegified is " + typeof stegified);
-    var pin = document.getElementById('pin').value.toString();
+//     var pin = document.getElementById('pin').value.toString();
+    var pin = "lulz";
     var words = CryptoJS.enc.Base64.parse(stegified);
-//     var sha256 = CryptoJS.SHA256(words);
-    var sha256 = CryptoJS.HmacSHA256(words, pin);
+    var sha256 = CryptoJS.SHA256(words);
+//     var sha256 = CryptoJS.HmacSHA256(words, pin);
     console.log("stego 1'st SHA256: " + sha256.toString());
     lamportHash( () => {
       document.getElementById('dlButton').disabled = false;
