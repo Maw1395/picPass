@@ -13,6 +13,9 @@ https://docs.google.com/presentation/d/1wqiPw7-eSTictgOzLA1kvIKVz1j3i9L5VPweA-f1
 ## Demonstration
 <img src="https://github.com/McFlip/picPass/blob/master/templates/STEGO.gif" width="850" height="550" />)
 
+## Where to Copy GitHub 
+    cd /var/www/html 
+    git clone git clone https://github.com/Maw1395/picPass.git
 ## Install Apache
 
 --YOU MAY NOT NEED TO DO THIS STEP--
